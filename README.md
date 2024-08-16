@@ -1,3 +1,3 @@
-# JuhiFlix Create this beautiful layout
+# ShiFlix Create this beautiful layout
 
 
