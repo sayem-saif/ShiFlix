@@ -5,6 +5,7 @@ export interface CarouselIndicatorProps {
     length: number;
     maxIndicatorVisible?: number;
     onSetActiveIndex: (index: number) => void;
+    children?: React.ReactNode; 
 }
 
 function CarouselIndicator({ activeIndex, length, maxIndicatorVisible = 5, onSetActiveIndex }: CarouselIndicatorProps) {
