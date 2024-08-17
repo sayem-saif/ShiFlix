@@ -124,28 +124,36 @@ const Home: NextPage = () => {
   ];
 
   useEffect(() => {
-    const audio = new Audio('/Welcome to ShiFlix.mp3');
-    audio.volume = 0.5; // Adjust volume if needed
-    audio.loop = true;  // Enable looping if desired
+    const handlePlayAudio = () => {
+      if (!audioPlayed) {
+        setupAudio();
+      }
+    };
 
-    const playAudio = () => {
+    const setupAudio = () => {
+      const audio = new Audio('/Welcome to ShiFlix.mp3');
+      audio.volume = 0.9 // Adjust volume if needed
+      audio.loop = false; // Ensure the audio does not loop
+    
+      // Start playing the audio
       audio.play().catch(error => {
         console.error("Error playing audio:", error);
       });
+    
+      // Set audioPlayed to true to prevent further playback
       setAudioPlayed(true);
     };
-
-    // Check for user interaction before playing audio
-    if (!audioPlayed) {
-      window.addEventListener('click', playAudio);
-    }
-
+    
+  
+    // Add event listener for user interaction
+    window.addEventListener('click', handlePlayAudio);
+  
+    // Cleanup function to remove event listener
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      window.removeEventListener('click', playAudio);
+      window.removeEventListener('click', handlePlayAudio);
     };
   }, [audioPlayed]);
+  
 
   return (
     <div className='h-screen w-screen overflow-hidden bg-bg text-white'>
@@ -155,7 +163,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Header  className='fixed top-0 w-full x-20' />
-      <main className='flex w-full flex-1 flex-col items-center justify-center px-20 pt-20 text-center'>
+      <main className='flex w-full flex-1 flex-col items-center justify-center px-20 pt-40 text-center'>
         {!showVideo && (
           <div className='md-19 flex-col justify-center space-y-6'>
             <h1 className='text-4xl font-bold md:text-5xl'>{message}</h1>
@@ -169,17 +177,17 @@ const Home: NextPage = () => {
               <div dangerouslySetInnerHTML={{ __html: episodes[selectedEpisode].embeddingCode }} />
             </div>
 
-            <div className='episodes-list-container mt-4 w-full max-w-md overflow-y-auto'>
-              <div className='episodes-list'>
-                {episodes.map((episode, index) => (
-                  <div
-                    key={index}
-                    className='episode-item bg-gradient-to-r from-purple-600 to-indigo-600 p-4 rounded mb-4 flex items-center justify-between cursor-pointer'
-                    onClick={() => handleEpisodeClick(index)}
-                  >
-                    <div className='flex items-center'>
-                      <img src='/play.png' alt='play button' className='w-6 h-6 mr-2' />
-                      <span className='text-white font-semibold'>Episode {index + 1}</span>
+            <div className='episodes-list-container mt-4 w-full max-w-md overflow-y-auto max-h-96'>
+  <div className='episodes-list grid grid-cols-2 gap-4'>
+    {episodes.map((episode, index) => (
+      <div
+        key={index}
+        className='episode-item bg-gradient-to-r from-purple-600 to-indigo-600 p-4 rounded flex items-center justify-between cursor-pointer'
+        onClick={() => handleEpisodeClick(index)}
+      >
+        <div className='flex items-center'>
+          <img src='/play.png' alt='play button' className='w-6 h-6 mr-2' />
+          <span className='text-white font-semibold'>Episode {index + 1}</span>
                     </div>
                   </div>
                 ))}
