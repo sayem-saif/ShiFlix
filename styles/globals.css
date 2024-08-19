@@ -59,5 +59,12 @@
       md:h-12 md:w-12
     }
 
+    .episode-buttons-container {
+        @apply flex flex-wrap overflow-y-auto h-80; /* Adjust height as needed */
+      }
+    
+      .episode-button {
+        @apply m-2 p-2 bg-gray-200 rounded-lg; /* Style your buttons */
+      }
+    }
 
-}
