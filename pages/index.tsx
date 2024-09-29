@@ -158,7 +158,7 @@ const Home: NextPage = () => {
   return (
     <div className='h-screen w-screen overflow-hidden bg-bg text-white'>
       <Head>
-        <title>ShiFlix</title>
+        <title>SayemiFlix</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
